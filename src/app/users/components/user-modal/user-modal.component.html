@@ -1,0 +1,56 @@
+<div class="user-modal">
+  <h2 class="modal-title">Create New User</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="modal-body">
+    <div class="grid">
+      <!-- Email -->
+      <label class="field">
+        <span>Email</span>
+        <input formControlName="email" type="email" />
+        <small *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+          Email must be valid and at least 5 characters
+        </small>
+      </label>
+
+      <!-- Name -->
+      <label class="field">
+        <span>Name</span>
+        <input formControlName="name" />
+        <small *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
+          Name is required
+        </small>
+      </label>
+    </div>
+
+    <!-- скрытый input:file -->
+    <input
+      #fileInput
+      hidden
+      type="file"
+      accept="image/*"
+      (change)="onFileSelected($event)"
+    />
+
+    <!-- Кнопка выбора аватара -->
+    <button
+      type="button"
+      class="btn secondary avatar-btn"
+      (click)="pickAvatar()"
+    >
+      Choose Avatar (optional)
+    </button>
+
+    <!-- Превью, если файл выбран -->
+    <img *ngIf="avatarPreview" [src]="avatarPreview" class="preview" />
+
+    <div class="actions">
+      <button class="btn primary" type="submit" [disabled]="form.invalid">
+        {{ loading ? "Creating…" : "Create" }}
+      </button>
+      <button class="btn secondary" type="button" (click)="cancel()">
+        Cancel
+      </button>
+      <small *ngIf="serverError" class="error">{{ serverError }}</small>
+    </div>
+  </form>
+</div>

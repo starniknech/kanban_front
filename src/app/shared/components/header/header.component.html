@@ -1,0 +1,22 @@
+<header class="app-header">
+  <a routerLink="/board" class="logo-group">
+    <img src="assets/app-icon.png" class="logo" alt="Logo" />
+    <span class="title">Kanban&nbsp;Task&nbsp;Manager</span>
+  </a>
+
+  <div class="spacer"></div>
+
+  <!-- аватары -->
+  <div class="avatars">
+    <ng-container *ngFor="let user of users">
+      <div class="avatar" [title]="user.name">
+        <img *ngIf="user.avatar" [src]="user.avatar" />
+        <span *ngIf="!user.avatar">{{ user.name[0] }}</span>
+      </div>
+    </ng-container>
+  </div>
+
+  <!-- кнопки -->
+  <button class="btn secondary" (click)="openNewTask()">New&nbsp;Task</button>
+  <button class="btn primary" (click)="openNewUser()">New&nbsp;User</button>
+</header>

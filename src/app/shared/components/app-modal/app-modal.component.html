@@ -1,0 +1,12 @@
+<div class="app-modal">
+  <button mat-icon-button class="close-button" aria-label="Close" (click)="close.emit()">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <h2 class="modal-title" *ngIf="title">{{ title }}</h2>
+
+  <!-- сюда попадает содержимое родительского компонента -->
+  <div class="modal-body">
+    <ng-content></ng-content>
+  </div>
+</div>

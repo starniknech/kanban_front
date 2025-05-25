@@ -1,0 +1,55 @@
+<app-modal [title]="'Create task'" (close)="cancel()">
+  <form [formGroup]="form" (ngSubmit)="submit()" class="task-form" autocomplete="off">
+    <!-- title -->
+    <label class="field">
+      <span>Title *</span>
+      <input formControlName="title" />
+    </label>
+
+    <!-- description -->
+    <label class="field">
+      <span>Description</span>
+      <textarea rows="3" formControlName="description"></textarea>
+    </label>
+
+    <!-- estimated time -->
+    <label class="field">
+      <span>Estimated time (h) *</span>
+      <input type="number" min="1" formControlName="estimatedTime" />
+    </label>
+
+    <!-- status -->
+    <label class="field">
+      <span>Status *</span>
+      <select formControlName="status">
+        <option *ngFor="let s of statuses" [value]="s">{{ s }}</option>
+      </select>
+    </label>
+
+    <!-- priority -->
+    <label class="field">
+      <span>Priority *</span>
+      <select formControlName="priority">
+        <option *ngFor="let p of priorities" [value]="p">{{ p }}</option>
+      </select>
+    </label>
+
+    <label class="field">
+      <span>Assign&nbsp;to</span>
+      <select formControlName="userId">
+        <option value="">None</option>
+        <option *ngFor="let u of users" [value]="u._id">
+          {{ u.name }}
+        </option>
+      </select>
+    </label>
+
+    <div class="actions">
+      <button class="btn primary" type="submit" [disabled]="form.invalid || loading">
+        {{ loading ? 'Creating…' : 'Create' }}
+      </button>
+    </div>
+
+    <small *ngIf="serverError" class="error">{{ serverError }}</small>
+  </form>
+</app-modal>

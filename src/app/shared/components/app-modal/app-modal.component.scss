@@ -1,0 +1,35 @@
+$app-blue: #2c64f2;
+$black: #111;
+
+.app-modal {
+  max-height: 90vh;
+  position: relative;
+  width: 500px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 24px 28px;
+  color: $black;
+  overflow-x: hidden;
+
+  .close-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: #555;
+
+    &:hover {
+      color: #000;
+    }
+  }
+
+  .modal-title {
+    margin: 0 0 20px;
+    font-size: 1.25rem;
+  }
+
+  .modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}

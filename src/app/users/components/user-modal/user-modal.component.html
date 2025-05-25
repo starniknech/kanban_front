@@ -1,9 +1,14 @@
-<div class="user-modal">
-  <h2 class="modal-title">Create New User</h2>
-
-  <form [formGroup]="form" (ngSubmit)="submit()" class="modal-body">
+<app-modal
+  [title]="'Create New User'"
+  (close)="cancel()"
+>
+  <!-- ВЕСЬ внутренний контент формы -->
+  <form
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+    class="form-wrapper"
+  >
     <div class="grid">
-      <!-- Email -->
       <label class="field">
         <span>Email</span>
         <input formControlName="email" type="email" />
@@ -12,7 +17,6 @@
         </small>
       </label>
 
-      <!-- Name -->
       <label class="field">
         <span>Name</span>
         <input formControlName="name" />
@@ -22,7 +26,6 @@
       </label>
     </div>
 
-    <!-- скрытый input:file -->
     <input
       #fileInput
       hidden
@@ -31,26 +34,41 @@
       (change)="onFileSelected($event)"
     />
 
-    <!-- Кнопка выбора аватара -->
     <button
       type="button"
       class="btn secondary avatar-btn"
       (click)="pickAvatar()"
     >
-      Choose Avatar (optional)
+      Choose Avatar&nbsp;(optional)
     </button>
 
-    <!-- Превью, если файл выбран -->
-    <img *ngIf="avatarPreview" [src]="avatarPreview" class="preview" />
+    <img
+      *ngIf="avatarPreview"
+      [src]="avatarPreview"
+      class="preview"
+    />
 
     <div class="actions">
-      <button class="btn primary" type="submit" [disabled]="form.invalid">
-        {{ loading ? "Creating…" : "Create" }}
+      <button
+        class="btn primary"
+        type="submit"
+        [disabled]="form.invalid"
+      >
+        {{ loading ? 'Creating…' : 'Create' }}
       </button>
-      <button class="btn secondary" type="button" (click)="cancel()">
+      <button
+        class="btn secondary"
+        type="button"
+        (click)="cancel()"
+      >
         Cancel
       </button>
-      <small *ngIf="serverError" class="error">{{ serverError }}</small>
+      <small
+        *ngIf="serverError"
+        class="error"
+      >
+        {{ serverError }}
+      </small>
     </div>
   </form>
-</div>
+</app-modal>

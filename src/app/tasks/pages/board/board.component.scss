@@ -1,0 +1,154 @@
+$column-bg: #f2f2f2;
+$card-bg: #fff;
+$card-hover: #fafafa;
+$blue: #2c64f2;
+$gap: 16px;
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: $gap;
+  padding: $gap;
+  height: calc(100vh - 64px);
+}
+
+/* ───── column ───── */
+.column {
+  background: $column-bg;
+  border-radius: 8px;
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+
+  .column-header {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 10px;
+
+    .badge {
+      background: #d9d9d9;
+      border-radius: 40px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 400;
+      &.count {
+        background: #bbb;
+      }
+    }
+  }
+
+  .task-list {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 40px;
+  }
+}
+
+/* ───── card ───── */
+.card {
+  background: $card-bg;
+  border-radius: 6px;
+  padding: 10px 12px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  &:hover {
+    background: $card-hover;
+  }
+
+  .title {
+    margin: 0;
+    font-size: 0.92rem;
+  }
+
+  /* progress bar */
+  .progress {
+    height: 6px;
+    background: #e0e0e0;
+    border-radius: 3px;
+    overflow: hidden;
+
+    .bar {
+      height: 100%;
+      background: $blue;
+    }
+  }
+
+  .times {
+    font-size: 0.7rem;
+    color: #666;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* priority badge */
+  .priority {
+    align-self: flex-start;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    &.LOWEST {
+      background: #9e9e9e;
+      color: #fff;
+    }
+    &.LOW {
+      background: #4caf50;
+      color: #fff;
+    }
+    &.MEDIUM {
+      background: #ff9800;
+      color: #fff;
+    }
+    &.HIGH {
+      background: #f44336;
+      color: #fff;
+    }
+    &.CRITICAL {
+      background: #b71c1c;
+      color: #fff;
+    }
+  }
+
+  /* assignee */
+  .assignee {
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    img,
+    .ava-initial {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .assignee-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+      strong {
+        font-size: 0.75rem;
+      }
+      small {
+        font-size: 0.65rem;
+        color: #666;
+      }
+    }
+  }
+}

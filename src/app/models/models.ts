@@ -15,7 +15,7 @@ export enum PriorityEnum {
 }
 
 export interface Task {
-  id: string;
+  _id: string;
   title: string;
   description?: string;
   estimatedTime?: number;
@@ -30,11 +30,12 @@ export interface Task {
 }
 
 export interface User {
-  id: string;
+  _id: string;
   email: string;
   name: string;
   avatar?: string;
   tasks: string[];
+  deleted?: boolean;
 
   createdAt: string;
   updatedAt: string;

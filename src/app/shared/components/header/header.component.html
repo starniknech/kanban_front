@@ -1,4 +1,5 @@
 <header class="app-header">
+  <!-- logo -->
   <a routerLink="/board" class="logo-group">
     <img src="assets/app-icon.png" class="logo" alt="Logo" />
     <span class="title">Kanban&nbsp;Task&nbsp;Manager</span>
@@ -6,17 +7,29 @@
 
   <div class="spacer"></div>
 
-  <!-- аватары -->
+  <!-- avatars -->
   <div class="avatars">
     <ng-container *ngFor="let user of users">
-      <div class="avatar" [title]="user.name">
-        <img *ngIf="user.avatar" [src]="user.avatar" />
+      <div class="avatar" (click)="openUserInfo(user)">
+        <!-- фото или буква -->
+        <img
+          *ngIf="user.avatar"
+          [src]="user.avatar.startsWith('http') ? user.avatar : apiUrl + user.avatar"
+          alt="avatar"
+        />
         <span *ngIf="!user.avatar">{{ user.name[0] }}</span>
+
+        <!-- кастом-tooltip -->
+        <div class="tooltip">
+          <strong>{{ user.name }}</strong
+          ><br />
+          <span class="email">{{ user.email }}</span>
+        </div>
       </div>
     </ng-container>
   </div>
 
-  <!-- кнопки -->
+  <!-- buttons -->
   <button class="btn secondary" (click)="openNewTask()">New&nbsp;Task</button>
   <button class="btn primary" (click)="openNewUser()">New&nbsp;User</button>
 </header>

@@ -1,0 +1,48 @@
+<div class="board" cdkDropListGroup>
+  <ng-container *ngFor="let s of orderedStatuses">
+    <div class="column">
+      <!-- header -->
+      <div class="column-header">
+        <span class="badge">{{ s.replace('_', ' ') }}</span>
+        <span class="badge count">{{ columns[s].length }}</span>
+      </div>
+
+      <!-- tasks -->
+      <div class="task-list" cdkDropList [cdkDropListData]="columns[s]" (cdkDropListDropped)="drop($event, s)">
+        <div class="card" *ngFor="let t of columns[s]" cdkDrag (click)="navigateTo(t._id)">
+          <!-- title -->
+          <h4 class="title">{{ t.title }}</h4>
+
+          <!-- progress -->
+          <div class="progress">
+            <div class="bar" [style.width.%]="t.completedOn"></div>
+          </div>
+
+          <!-- times -->
+          <div class="times" *ngIf="t.estimatedTime != null && t.spentTime != null">
+            <span>{{ t.estimatedTime }}h est</span>
+            <span>{{ t.estimatedTime - t.spentTime }}h left</span>
+          </div>
+
+          <!-- priority -->
+          <span class="priority" [ngClass]="t.priority">
+            {{ t.priority }}
+          </span>
+
+          <!-- assignee -->
+          <div class="assignee" *ngIf="userBy(t.userId) as usr">
+            <img *ngIf="usr.avatar; else init" [src]="apiUrl + usr.avatar" alt="avatar" />
+            <ng-template #init>
+              <div class="ava-initial">{{ usr.name[0] }}</div>
+            </ng-template>
+
+            <div class="assignee-text">
+              <strong>{{ usr.name }}</strong>
+              <small>{{ usr.email }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

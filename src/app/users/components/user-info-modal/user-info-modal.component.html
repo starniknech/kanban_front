@@ -1,0 +1,42 @@
+<app-modal [title]="'User information'" (close)="cancel()">
+  <!-- avatar -->
+  <div class="avatar-wrapper" (click)="pickAvatar()">
+    <img
+      *ngIf="avatarPreview; else initials"
+      [src]="avatarPreview.startsWith('/uploads') ? apiUrl + avatarPreview : avatarPreview"
+      alt="avatar"
+    />
+    <ng-template #initials>
+      <div class="initial">{{ user.name[0] }}</div>
+    </ng-template>
+    <button
+      mat-icon-button
+      class="avatar-edit"
+      aria-label="Change avatar"
+      (click)="pickAvatar(); $event.stopPropagation()"
+    >
+      <mat-icon>photo_camera</mat-icon>
+    </button>
+    <input #fileInput type="file" hidden accept="image/*" (change)="onFileSelected($event)" />
+  </div>
+
+  <!-- form -->
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form" autocomplete="off">
+    <label class="field">
+      <span>Email</span>
+      <input formControlName="email" type="email" />
+      <small *ngIf="form.get('email')?.invalid && form.get('email')?.touched">Enter a valid email, 5+ chars</small>
+    </label>
+
+    <label class="field">
+      <span>Name</span>
+      <input formControlName="name" />
+      <small *ngIf="form.get('name')?.invalid && form.get('name')?.touched">Min&nbsp;2 chars</small>
+    </label>
+    <div class="actions">
+      <button type="button" class="delete-btn" (click)="deleteUser()" [disabled]="loading">Delete user</button>
+      <button type="submit" class="submit-btn" [disabled]="form.invalid || !form.dirty">Submit</button>
+    </div>
+    <small *ngIf="serverError" class="error">{{ serverError }}</small>
+  </form>
+</app-modal>

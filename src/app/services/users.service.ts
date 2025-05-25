@@ -1,14 +1,14 @@
-// src/app/services/users.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/models';
 import { Observable } from 'rxjs';
+import { API_URL } from '../shared/constants/constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersService {
-  private readonly API_URL = 'http://localhost:5000/users'; // или твой production backend
+  private readonly API_URL = API_URL + '/users';
 
   constructor(private http: HttpClient) {}
 
@@ -20,11 +20,11 @@ export class UsersService {
     return this.http.get<User>(`${this.API_URL}/${id}`);
   }
 
-  create(payload: FormData | Partial<User>): Observable<User> {
+  create(payload: FormData): Observable<User> {
     return this.http.post<User>(this.API_URL, payload);
   }
 
-  update(id: string, user: Partial<User>): Observable<User> {
+  update(id: string, user: FormData): Observable<User> {
     return this.http.patch<User>(`${this.API_URL}/${id}`, user);
   }
 
@@ -33,9 +33,6 @@ export class UsersService {
   }
 
   assignTask(userId: string, taskId: string): Observable<User> {
-    return this.http.patch<User>(
-      `${this.API_URL}/${userId}/tasks/${taskId}`,
-      {}
-    );
+    return this.http.patch<User>(`${this.API_URL}/${userId}/tasks/${taskId}`, {});
   }
 }

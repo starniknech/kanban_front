@@ -36,7 +36,6 @@ import { UserStoreService } from '../../shared/stores/user-store.service';
         margin: 0 auto;
       }
 
-      /* ───── view-switch nav ───── */
       .view-switch {
         display: flex;
         justify-content: flex-start;

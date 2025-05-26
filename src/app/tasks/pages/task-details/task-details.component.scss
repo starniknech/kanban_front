@@ -68,6 +68,7 @@ select {
 }
 
 .left h1 {
+  overflow: hidden;
   font-size: 1.2rem;
   font-weight: 400 !important;
 }
@@ -217,12 +218,14 @@ select {
   }
 
   .secondary {
+    border-radius: 4px;
     background: #fff;
     border: 1px solid $blue;
     color: $blue;
   }
 
   .delete {
+    border-radius: 4px;
     background: #b71c1c;
     color: #fff;
     border: none;

@@ -75,7 +75,6 @@ $gray-text: #888;
   }
 }
 
-/* ───── card ───── */
 .card {
   background: $card-bg;
   border-radius: 6px;
@@ -91,6 +90,7 @@ $gray-text: #888;
   }
 
   .title {
+    overflow: hidden;
     font-weight: 500;
     margin: 0;
     margin-bottom: 6px;

@@ -46,7 +46,6 @@ export class TaskCreateModalComponent implements OnInit, OnDestroy {
   private sub?: Subscription;
 
   ngOnInit(): void {
-    /* получаем пользователей из глобального стора */
     this.sub = this.userStore.users$.subscribe((list: User[]) => {
       this.users = list.map(({ _id, name }) => ({ _id, name }));
     });
@@ -79,7 +78,7 @@ export class TaskCreateModalComponent implements OnInit, OnDestroy {
 
     this.tasksSrv.create(payload).subscribe({
       next: (created) => {
-        this.taskStore.add(created); // ⬅️ обновляем стор
+        this.taskStore.add(created);
         this.loading = false;
         this.dialogRef.close(created);
       },

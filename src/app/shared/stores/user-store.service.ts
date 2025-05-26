@@ -10,7 +10,6 @@ export class UserStoreService {
 
   constructor(private usersService: UsersService) {}
 
-  /** Load users once */
   load(): void {
     this.usersService.getAll().subscribe({
       next: (users) => this.usersSubject.next(users),
@@ -18,12 +17,10 @@ export class UserStoreService {
     });
   }
 
-  /** Optional: update local state manually */
   set(users: User[]): void {
     this.usersSubject.next(users);
   }
 
-  /** Optional: get snapshot */
   get value(): User[] {
     return this.usersSubject.getValue();
   }

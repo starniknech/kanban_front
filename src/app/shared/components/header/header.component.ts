@@ -48,7 +48,7 @@ export class HeaderComponent implements OnInit {
       .afterClosed()
       .subscribe((created) => {
         if (created) {
-          this.userStore.set([...this.users, created]); // обновляем store
+          this.userStore.set([...this.users, created]);
         }
       });
   }

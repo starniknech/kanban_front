@@ -2,7 +2,6 @@ $blue: #2c64f2;
 $light-gray: #f5f5f5;
 $card-bg: #fff;
 
-/* ---------- layout ---------- */
 .task-table {
   width: 100%;
   border: 1px solid $light-gray;
@@ -41,15 +40,13 @@ $card-bg: #fff;
   }
 }
 
-/* ---------- title ---------- */
 .title {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: #222; /* black text */
+  color: #222;
 }
 
-/* ---------- priority badge ---------- */
 .p-badge {
   display: inline-block;
   padding: 2px 6px;
@@ -75,9 +72,8 @@ $card-bg: #fff;
   }
 }
 
-/* ---------- status badge ---------- */
 .s-badge {
-  @extend .p-badge; /* reuse size */
+  @extend .p-badge;
   &.TODO {
     background: #9e9e9e;
   }
@@ -95,7 +91,6 @@ $card-bg: #fff;
   }
 }
 
-/* ---------- assignee ---------- */
 .assignee {
   display: flex;
   align-items: center;

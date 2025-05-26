@@ -47,17 +47,13 @@ export class BoardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    /* подписываемся на список задач */
     this.taskStore.list$.subscribe((tasks) => {
-      /* очищаем колонки и раскладываем заново */
       for (const key of this.orderedStatuses) this.columns[key] = [];
       tasks.forEach((t) => this.columns[t.status].push(t));
     });
 
-    /* если стор ещё пуст – загрузим с сервера */
     this.taskStore.load();
 
-    /* подписка на пользователей */
     this.userStore.users$.subscribe((list) => {
       this.usersMap = list.reduce<Record<string, User>>((acc, u) => ((acc[u._id] = u), acc), {});
     });
@@ -71,7 +67,6 @@ export class BoardComponent implements OnInit {
     this.router.navigate(['/tasks', id]);
   }
 
-  /* drag-and-drop */
   drop(evt: CdkDragDrop<Task[]>, status: StatusEnum): void {
     if (evt.previousContainer === evt.container) {
       moveItemInArray(evt.container.data, evt.previousIndex, evt.currentIndex);
@@ -84,12 +79,11 @@ export class BoardComponent implements OnInit {
     if (task.status === status) return;
 
     const oldStatus = task.status;
-    task.status = status; // optimistic locally
+    task.status = status;
 
     this.tasksService.update(task._id!, { status }).subscribe({
-      next: (updated) => this.taskStore.updateLocal(updated), // sync стор
+      next: (updated) => this.taskStore.updateLocal(updated),
       error: () => {
-        // rollback UI & стор
         task.status = oldStatus;
         transferArrayItem(evt.container.data, evt.previousContainer.data, evt.currentIndex, evt.previousIndex);
       },

@@ -45,7 +45,6 @@ export class UserModalComponent {
     this.form.patchValue({ avatar: file });
     this.form.get('avatar')!.updateValueAndValidity();
 
-    /* превью */
     const reader = new FileReader();
     reader.onload = () => (this.avatarPreview = reader.result as string);
     reader.readAsDataURL(file);
@@ -65,7 +64,7 @@ export class UserModalComponent {
     this.usersService.create(fd).subscribe({
       next: (createdUser) => {
         this.loading = false;
-        this.dialogRef.close(createdUser); // наружу отдаём User, не FormData
+        this.dialogRef.close(createdUser);
       },
       error: (err) => {
         console.error(err);

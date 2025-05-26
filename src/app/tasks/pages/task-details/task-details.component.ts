@@ -17,14 +17,12 @@ import { API_URL } from '../../../shared/constants/constants';
   imports: [CommonModule, FormsModule, RouterModule],
 })
 export class TaskDetailsComponent implements OnInit {
-  /* ─── DI ─── */
   private route = inject(ActivatedRoute);
   private tasksSrv = inject(TasksService);
   private taskStore = inject(TaskStoreService);
   private userStore = inject(UserStoreService);
   private location = inject(Location);
 
-  /* ─── state ─── */
   id = this.route.snapshot.paramMap.get('id')!;
   task!: Task;
   users: User[] = [];

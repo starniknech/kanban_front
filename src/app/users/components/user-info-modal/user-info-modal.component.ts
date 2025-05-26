@@ -36,7 +36,7 @@ export class UserInfoModalComponent {
     this.form = this.fb.group({
       email: [user.email, [Validators.required, Validators.email, Validators.minLength(5)]],
       name: [user.name, [Validators.required, Validators.minLength(2)]],
-      avatar: [null], // new file, optional
+      avatar: [null],
     });
   }
 
@@ -78,7 +78,6 @@ export class UserInfoModalComponent {
     });
   }
 
-  /* ——— submit ——— */
   submit(): void {
     if (this.form.invalid || !this.form.dirty || this.loading) return;
 
@@ -90,19 +89,17 @@ export class UserInfoModalComponent {
     fd.append('name', this.form.value.name);
     if (this.form.value.avatar) fd.append('avatar', this.form.value.avatar);
 
-    this.usersService
-      .update(this.user._id!, fd) // assumes _id present
-      .subscribe({
-        next: (updated) => {
-          this.loading = false;
-          this.dialogRef.close(updated); // fresh object from server
-        },
-        error: (e) => {
-          console.error(e);
-          this.loading = false;
-          this.serverError = 'Failed to update user. Try again.';
-        },
-      });
+    this.usersService.update(this.user._id!, fd).subscribe({
+      next: (updated) => {
+        this.loading = false;
+        this.dialogRef.close(updated);
+      },
+      error: (e) => {
+        console.error(e);
+        this.loading = false;
+        this.serverError = 'Failed to update user. Try again.';
+      },
+    });
   }
 
   cancel(): void {

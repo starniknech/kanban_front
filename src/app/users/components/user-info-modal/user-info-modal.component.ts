@@ -5,7 +5,7 @@ import { FormBuilder, ReactiveFormsModule, Validators, FormGroup } from '@angula
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { User } from '../../../models/models';
+import { User } from '../../../shared/models/models';
 import { UsersService } from '../../../services/users.service';
 import { AppModalComponent } from '../../../shared/components/app-modal/app-modal.component';
 

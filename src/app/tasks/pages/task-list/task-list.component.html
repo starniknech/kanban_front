@@ -1,0 +1,45 @@
+<div class="task-table">
+  <!-- header -->
+  <div class="row header">
+    <span class="col title">Title</span>
+    <span class="col time">Est</span>
+    <span class="col time">Left</span>
+    <span class="col prio">Priority</span>
+    <span class="col assignee">Assignee</span>
+    <span class="col status">Status</span>
+  </div>
+
+  <!-- body -->
+  <div class="row body" *ngFor="let t of tasks" (click)="nav(t._id)">
+    <span class="col title">{{ t.title }}</span>
+
+    <span class="col time">{{ t.estimatedTime ?? '—' }}h</span>
+    <span class="col time">{{
+      t.estimatedTime != null && t.spentTime != null ? t.estimatedTime - t.spentTime + 'h' : '—'
+    }}</span>
+
+    <!-- priority -->
+    <span class="col prio">
+      <span class="p-badge {{ t.priority }}">{{ t.priority }}</span>
+    </span>
+
+    <!-- assignee -->
+    <span class="col assignee" *ngIf="userBy(t.userId) as u; else none">
+      <img *ngIf="u.avatar; else init" [src]="u.avatar.startsWith('http') ? u.avatar : apiUrl + u.avatar" alt="ava" />
+      <ng-template #init>
+        <div class="ava-initial">{{ u.name[0] }}</div>
+      </ng-template>
+
+      <span class="info">
+        {{ u.name }}
+        <small>{{ u.email }}</small>
+      </span>
+    </span>
+    <ng-template #none><span class="col assignee muted">Unassigned</span></ng-template>
+
+    <!-- status -->
+    <span class="col status">
+      <span class="s-badge {{ t.status }}">{{ t.status.replace('_', ' ') }}</span>
+    </span>
+  </div>
+</div>

@@ -9,17 +9,9 @@ import { UserStoreService } from '../../shared/stores/user-store.service';
 @Component({
   selector: 'app-main-layout',
   standalone: true,
-  imports: [
-    CommonModule,
-    HeaderComponent,
-    RouterOutlet,
-    RouterModule, // ⬅️ for routerLink / routerLinkActive
-    MatIconModule, // ⬅️ material icons
-  ],
+  imports: [CommonModule, HeaderComponent, RouterOutlet, RouterModule, MatIconModule],
   template: `
     <app-header></app-header>
-
-    <!-- view-switcher -->
 
     <main class="container">
       <nav class="view-switch">
@@ -39,7 +31,7 @@ import { UserStoreService } from '../../shared/stores/user-store.service';
       $app-blue: #2c64f2;
 
       .container {
-        padding: 24px 16px 40px;
+        padding: 80px 16px 40px;
         max-width: 1280px;
         margin: 0 auto;
       }

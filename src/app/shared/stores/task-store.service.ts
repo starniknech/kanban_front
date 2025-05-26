@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { TasksService } from '../../services/tasks.service';
-import { Task } from '../../models/models';
+import { Task } from '../models/models';
 
 @Injectable({ providedIn: 'root' })
 export class TaskStoreService {

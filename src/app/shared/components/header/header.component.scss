@@ -3,12 +3,19 @@ $light-gray: #f5f5f5;
 
 /* ───────── header shell ───────── */
 .app-header {
+  position: fixed; // ← make it fixed
+  top: 0; // ← stick to the top
+  left: 0;
+  right: 0;
+  z-index: 1000; // ← stay above all other content
   display: flex;
   align-items: center;
   padding: 0 24px;
   height: 64px;
   background: #fff;
   border-bottom: 1px solid $light-gray;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
 /* logo */
@@ -36,21 +43,22 @@ $light-gray: #f5f5f5;
 /* ───────── avatars ───────── */
 .avatars {
   display: flex;
+  align-items: center;
   gap: 8px;
   margin-right: 16px;
 }
 
 .avatar {
   cursor: pointer;
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: $light-gray;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
   font-weight: 600;
   color: $app-blue;
-  overflow: visible; /* ! важно: даём тултипу вылезти */
+  overflow: visible;
 
   img {
     width: 100%;

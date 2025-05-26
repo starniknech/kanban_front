@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { API_URL } from '../shared/constants/constants';
-import { Task } from '../models/models';
+import { Task } from '../shared/models/models';
 
 @Injectable({ providedIn: 'root' })
 export class TasksService {

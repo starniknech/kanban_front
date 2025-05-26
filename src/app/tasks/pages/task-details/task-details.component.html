@@ -1,0 +1,135 @@
+<div class="wrapper" *ngIf="task">
+  <div class="container">
+    <div class="content">
+      <section class="left">
+        <!-- Title -->
+        <div class="section-block">
+          <h3 class="section-title">Title</h3>
+          <h1>
+            <input *ngIf="editMode; else titleView" [(ngModel)]="task.title" class="edit-input title-input" />
+            <ng-template #titleView>{{ task.title }}</ng-template>
+          </h1>
+        </div>
+
+        <!-- Description -->
+        <div class="section-block">
+          <h3 class="section-title">Description</h3>
+          <textarea *ngIf="editMode" [(ngModel)]="task.description" rows="6"></textarea>
+          <p *ngIf="!editMode" class="desc">{{ task.description || '—' }}</p>
+        </div>
+
+        <!-- Completed On -->
+        <div class="section-block">
+          <h3 class="section-title">Completed %</h3>
+          <ng-container *ngIf="editMode; else completedView">
+            <input type="number" [(ngModel)]="task.completedOn" min="0" max="100" />
+          </ng-container>
+          <ng-template #completedView>
+            <div class="progress-block">
+              <div class="progress">
+                <div class="bar blue" [style.width.%]="task.completedOn || 0"></div>
+              </div>
+              <small>{{ task.completedOn || 0 }}%</small>
+            </div>
+          </ng-template>
+        </div>
+
+        <!-- Status & Priority -->
+        <div class="section-block">
+          <h3 class="section-title">Status & Priority</h3>
+          <div class="badges">
+            <label>
+              Status:
+              <select *ngIf="editMode" [(ngModel)]="task.status">
+                <option *ngFor="let s of statuses" [value]="s">{{ s }}</option>
+              </select>
+              <span *ngIf="!editMode" class="badge s-{{ task.status }}">{{ task.status.replace('_', ' ') }}</span>
+            </label>
+
+            <label>
+              Priority:
+              <select *ngIf="editMode" [(ngModel)]="task.priority">
+                <option *ngFor="let p of priorities" [value]="p">{{ p }}</option>
+              </select>
+              <span *ngIf="!editMode" class="badge p-{{ task.priority }}">{{ task.priority }}</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Time -->
+        <div class="section-block">
+          <h3 class="section-title">Time</h3>
+          <div class="progress-block">
+            <div class="progress">
+              <div class="bar green" [style.width.%]="progressPercent"></div>
+            </div>
+            <small>{{ task.spentTime || 0 }}h / {{ task.estimatedTime || 0 }}h</small>
+          </div>
+
+          <div class="time-box">
+            <label>
+              Estimated:
+              <input *ngIf="editMode" type="number" min="0" [(ngModel)]="task.estimatedTime" />
+              <span *ngIf="!editMode">{{ task.estimatedTime ?? '—' }}h</span>
+            </label>
+
+            <label>
+              Spent:
+              <input *ngIf="editMode" type="number" min="0" [(ngModel)]="task.spentTime" />
+              <span *ngIf="!editMode">{{ task.spentTime ?? '—' }}h</span>
+            </label>
+
+            <label>
+              Left:
+              <span>{{ timeLeft }}</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Assignee -->
+        <div class="section-block">
+          <h3 class="section-title">Assignee</h3>
+          <select *ngIf="editMode" [(ngModel)]="task.userId">
+            <option [ngValue]="''">None</option>
+            <option *ngFor="let u of users" [ngValue]="u._id">{{ u.name }} — {{ u.email }}</option>
+          </select>
+
+          <div *ngIf="!editMode" class="assignee" [class.muted]="!assignee">
+            <ng-container *ngIf="assignee; else noOne">
+              <img *ngIf="assignee.avatar; else init" [src]="fullAvatar(assignee.avatar)" alt="ava" />
+              <ng-template #init>
+                <div class="ava-initial">{{ assignee.name[0] }}</div>
+              </ng-template>
+
+              <span class="info">
+                {{ assignee.name }}<br />
+                <small>{{ assignee.email }}</small>
+              </span>
+            </ng-container>
+            <ng-template #noOne>—</ng-template>
+          </div>
+        </div>
+
+        <!-- Dates -->
+        <div class="section-block">
+          <h3 class="section-title">Dates</h3>
+          <div class="dates">
+            <small>Created: {{ task.createdAt | date: 'medium' }}</small>
+            <small>Updated: {{ task.updatedAt | date: 'medium' }}</small>
+            <small *ngIf="task.status === 'DONE'">Completed: {{ task.completedOn | date: 'medium' }}</small>
+          </div>
+        </div>
+      </section>
+
+      <aside class="right fixed">
+        <button *ngIf="!editMode" (click)="toggleEdit()" class="secondary">Edit</button>
+        <div *ngIf="editMode" class="edit-actions">
+          <button (click)="save()" class="primary">Save</button>
+          <button (click)="cancel()" class="secondary">Cancel</button>
+        </div>
+        <hr />
+        <button class="delete" (click)="del()">Delete</button>
+      </aside>
+    </div>
+  </div>
+</div>

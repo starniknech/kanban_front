@@ -1,35 +1,49 @@
 <div class="board" cdkDropListGroup>
   <ng-container *ngFor="let s of orderedStatuses">
     <div class="column">
-      <!-- header -->
-      <div class="column-header">
-        <span class="badge">{{ s.replace('_', ' ') }}</span>
-        <span class="badge count">{{ columns[s].length }}</span>
+      <!-- Верхний блок -->
+      <div class="column-header rounded-top">
+        <div class="column-header-inner">
+          <span class="status">{{ s.replace('_', ' ') }}</span>
+          <span class="count">{{ columns[s].length }}</span>
+        </div>
       </div>
 
-      <!-- tasks -->
-      <div class="task-list" cdkDropList [cdkDropListData]="columns[s]" (cdkDropListDropped)="drop($event, s)">
+      <!-- Отступ между блоками -->
+      <div class="column-gap"></div>
+
+      <!-- Нижний блок -->
+      <div
+        class="task-list rounded-bottom"
+        cdkDropList
+        [cdkDropListData]="columns[s]"
+        (cdkDropListDropped)="drop($event, s)"
+      >
         <div class="card" *ngFor="let t of columns[s]" cdkDrag (click)="navigateTo(t._id)">
-          <!-- title -->
           <h4 class="title">{{ t.title }}</h4>
 
-          <!-- progress -->
-          <div class="progress">
-            <div class="bar" [style.width.%]="t.completedOn"></div>
+          <div>
+            <div class="section-label">Completed on:</div>
+            <div class="progress">
+              <div class="bar" [style.width.%]="t.completedOn || 0"></div>
+            </div>
+          </div>
+          <div *ngIf="t.estimatedTime != null && t.spentTime != null">
+            <div class="section-label">Time left:</div>
+            <div class="progress time">
+              <div class="bar" [style.width.%]="100 * (t.spentTime / t.estimatedTime)"></div>
+            </div>
+
+            <div class="times">
+              <span>{{ t.estimatedTime }}h est</span>
+              <span>{{ t.estimatedTime - t.spentTime }}h left</span>
+            </div>
           </div>
 
-          <!-- times -->
-          <div class="times" *ngIf="t.estimatedTime != null && t.spentTime != null">
-            <span>{{ t.estimatedTime }}h est</span>
-            <span>{{ t.estimatedTime - t.spentTime }}h left</span>
-          </div>
+          <!-- Priority -->
+          <span class="priority" [ngClass]="t.priority">{{ t.priority }}</span>
 
-          <!-- priority -->
-          <span class="priority" [ngClass]="t.priority">
-            {{ t.priority }}
-          </span>
-
-          <!-- assignee -->
+          <!-- Assignee -->
           <div class="assignee" *ngIf="userBy(t.userId) as usr">
             <img *ngIf="usr.avatar; else init" [src]="apiUrl + usr.avatar" alt="avatar" />
             <ng-template #init>
@@ -41,6 +55,9 @@
               <small>{{ usr.email }}</small>
             </div>
           </div>
+
+          <!-- Created at -->
+          <div class="created-at">{{ t.createdAt | date: 'mediumDate' }}</div>
         </div>
       </div>
     </div>

@@ -1,17 +1,9 @@
-<app-modal
-  [title]="'Create New User'"
-  (close)="cancel()"
->
-  <!-- ВЕСЬ внутренний контент формы -->
-  <form
-    [formGroup]="form"
-    (ngSubmit)="submit()"
-    class="form-wrapper"
-  >
+<app-modal [title]="'Create New User'" (close)="cancel()">
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form-wrapper">
     <div class="grid">
       <label class="field">
         <span>Email</span>
-        <input formControlName="email" type="email" />
+        <input placeholder="Enter Email" formControlName="email" type="email" />
         <small *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
           Email must be valid and at least 5 characters
         </small>
@@ -19,54 +11,23 @@
 
       <label class="field">
         <span>Name</span>
-        <input formControlName="name" />
-        <small *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
-          Name is required
-        </small>
+        <input formControlName="name" placeholder="Enter Name" />
+        <small *ngIf="form.get('name')?.invalid && form.get('name')?.touched"> Name is required </small>
       </label>
     </div>
 
-    <input
-      #fileInput
-      hidden
-      type="file"
-      accept="image/*"
-      (change)="onFileSelected($event)"
-    />
+    <input #fileInput hidden type="file" accept="image/*" (change)="onFileSelected($event)" />
 
-    <button
-      type="button"
-      class="btn secondary avatar-btn"
-      (click)="pickAvatar()"
-    >
-      Choose Avatar&nbsp;(optional)
-    </button>
+    <button type="button" class="btn secondary avatar-btn" (click)="pickAvatar()">Choose Avatar&nbsp;(optional)</button>
 
-    <img
-      *ngIf="avatarPreview"
-      [src]="avatarPreview"
-      class="preview"
-    />
+    <img *ngIf="avatarPreview" [src]="avatarPreview" class="preview" />
 
     <div class="actions">
-      <button
-        class="btn primary"
-        type="submit"
-        [disabled]="form.invalid"
-      >
+      <button class="btn primary" type="submit" [disabled]="form.invalid">
         {{ loading ? 'Creating…' : 'Create' }}
       </button>
-      <button
-        class="btn secondary"
-        type="button"
-        (click)="cancel()"
-      >
-        Cancel
-      </button>
-      <small
-        *ngIf="serverError"
-        class="error"
-      >
+      <button class="btn secondary" type="button" (click)="cancel()">Cancel</button>
+      <small *ngIf="serverError" class="error">
         {{ serverError }}
       </small>
     </div>

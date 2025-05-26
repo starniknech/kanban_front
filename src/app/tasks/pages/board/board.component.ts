@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DragDropModule, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Router, RouterModule } from '@angular/router';
-import { StatusEnum, Task, User } from '../../../models/models';
+import { StatusEnum, Task, User } from '../../../shared/models/models';
 import { TasksService } from '../../../services/tasks.service';
 import { UserStoreService } from '../../../shared/stores/user-store.service';
 import { TaskStoreService } from '../../../shared/stores/task-store.service';
@@ -19,7 +19,7 @@ type Columns = Record<StatusEnum, Task[]>;
 })
 export class BoardComponent implements OnInit {
   StatusEnum = StatusEnum;
-  apiUrl = API_URL; 
+  apiUrl = API_URL;
 
   orderedStatuses: StatusEnum[] = [
     StatusEnum.TODO,

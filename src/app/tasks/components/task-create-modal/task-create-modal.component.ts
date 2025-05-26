@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 
-import { PriorityEnum, StatusEnum, Task, User } from '../../../models/models';
+import { PriorityEnum, StatusEnum, Task, User } from '../../../shared/models/models';
 import { AppModalComponent } from '../../../shared/components/app-modal/app-modal.component';
 import { Subscription } from 'rxjs';
 import { TasksService } from '../../../services/tasks.service';
